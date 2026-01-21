@@ -75,47 +75,33 @@ class MarsRover:
 
 def parse_input():
     """
-    Helper function to parse input from console.
-    Supports inputs with or without labels (e.g., "Grid size: 10 x 8" or "10 x 8")
+    Parses simple space-separated console input.
+
+    Expected Input:
+    Grid size:        n m
+    Starting position: x y
+    Commands:         string (U, D, L, R)
     """
     try:
-        print("Enter inputs (you can paste the lines from the example):")
-        
-        # 1. Grid Size
-        # Example input: "Grid size: 10 x 8" or just "10 x 8"
-        raw_grid = input("Enter grid size (n x m): ")
-        # Handle case where user pastes "Grid size: ..."
-        if ':' in raw_grid:
-            grid_val = raw_grid.split(':')[-1].strip()
-        else:
-            grid_val = raw_grid.strip()
-            
-        width, height = map(int, grid_val.lower().split('x'))
+        print("Enter inputs:")
 
-        # 2. Starting Position
-        # Example input: "Starting position: (0, 0)" or "(0, 0)"
-        raw_pos = input("Enter starting position (x, y): ")
-        if ':' in raw_pos:
-            pos_val = raw_pos.split(':')[-1].strip()
-        else:
-            pos_val = raw_pos.strip()
-            
-        pos_val = pos_val.replace('(', '').replace(')', '')
-        start_x, start_y = map(int, pos_val.split(','))
+        # 1. Grid size
+        n, m = map(int, input("Enter grid size (n m): ").split())
+
+        # 2. Starting position
+        start_x, start_y = map(int, input("Enter starting position (x y): ").split())
 
         # 3. Commands
-        # Example input: "Commands: RRUURL" or "RRUURL"
-        raw_cmd = input("Enter commands: ")
-        if ':' in raw_cmd:
-            commands = raw_cmd.split(':')[-1].strip()
-        else:
-            commands = raw_cmd.strip()
-        
-        return width, height, start_x, start_y, commands
+        commands = input("Enter commands: ").strip().upper()
 
-    except ValueError as e:
-        print(f"\nError parsing input: {e}")
-        print("Please ensure format is correct (e.g., '10 x 8', '(0, 0)', 'RRUURL')")
+        return n, m, start_x, start_y, commands
+
+    except ValueError:
+        print("\n❌ Invalid input format.")
+        print("Expected:")
+        print("Grid size      -> n m")
+        print("Start position -> x y")
+        print("Commands       -> RRUURL")
         sys.exit(1)
     except Exception as e:
         print(f"\nAn unexpected error occurred: {e}")
