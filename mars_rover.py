@@ -50,6 +50,7 @@ class MarsRover:
             new_x -= 1
         else:
             # Ignore invalid characters or handle them if needed
+            print("Invalid character, please enter U, D, L, R")
             return
 
         # Check boundary conditions
